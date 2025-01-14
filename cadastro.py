@@ -8,8 +8,8 @@ def cadastronome():
             print("está incorreto tente novamente")
             cadastronome = input("insira seu nome: ")
             continue #para voltar para o While True e validar o nome de novo
-        for caract in cadastronome:
-            if not (("a" <= caract <= "z") or ("A" <= caract <= "Z") or (caract == " ")): #o inverso da condição if, se usasemos o if normalmente sem o not ele validaria como erradas essas caracteres e botariam os símbolos como certos
+        for char in cadastronome:
+             if not (("A" <= char <= "Z") or ("a" <= char <= "z") or (char == " ") or (char == "ã") or (char == "õ") or ("á" <= char <= "ú") or char =="ç" or ("â" <= char <= "û")): #o inverso da condição if, se usasemos o if normalmente sem o not ele validaria como erradas essas caracteres e botariam os símbolos como certos
                 print("o nome está errado, ele não pode receber símbolos")
                 cadastronome = (input("insira novamente: "))
                 break
@@ -22,8 +22,8 @@ def lugar():
             print("está errado!")
             lugar = input("insira novamente o local: ")
             continue
-        for caract in lugar:
-            if not ("a" <= caract <= "z") or ("A" <= caract <= "Z") or (caract == " "):
+        for char in lugar:
+            if not (("A" <= char <= "Z") or ("a" <= char <= "z") or (char == " ") or (char == "ã") or (char == "õ") or ("á" <= char <= "ú") or char == "ç" or ("â" <= char <= "û")):
                 print("está errado")
                 lugar = input("insira novamente o local: ")
                 break
@@ -37,6 +37,19 @@ def lernumero():
             return numero
         except:
             print("valor inválido!, insira um número, não uma letra ou símbolo")
+def lernome():
+    while True:
+        nome = input("insira a sua escolha!: ")
+        if nome == "":
+            print("está errado escreva um nome não vazio!")
+            continue
+        for char in nome:
+            if not (("A" <= char <= "Z") or ("a" <= char <= "z") or (char == " ") or (char == "ã") or (char == "õ") or ("á" <= char <= "ú") or char =="ç" or ("â" <= char <= "û")):
+                print("está errado insira apenas letras e espaços!")
+                break
+        else:
+            return nome
+
 def costapraia():
     while True:
         print("insira seu saldo:")
@@ -44,6 +57,7 @@ def costapraia():
         if saldo < 0:
             print("saldo está errado! bote um número positivo")
             continue
+        print("digite a quantidade de dias abaixo:")
         dias = lernumero()
         print("insira os dias para ficar:")
         if dias < 0:
@@ -76,7 +90,7 @@ def costamar():
         preco = dias * 150
         while saldo < preco:
             print("seu saldo é insuficiente, insira outro saldo!")
-            print("caso queira sair insira um valor negativo!")
+            print("caso queira sair insira um valor negativo")
             saldo = lernumero()
             if saldo < 0:
                 print("saindo")
@@ -111,31 +125,53 @@ while True:
 
     if menu == 1: #botar o menu como um número, pois é mais interativo
         nome = cadastronome() #chamar uma função para o cadastro do nome
-        print("o seu nome é: ", nome)
+        print("o seu nome é:", nome)
         lista.append(nome)
-        escolha = input("você deseja sair? ").lower()
-        if escolha == "sim":
+        print("você deseja sair?, caso queira digite sim abaixo")
+        escolha = lernome().lower()
+        if escolha == "sim" or escolha == "s" or escolha == "si":
             break
 
     if menu == 2:
         lugardesejado = lugar()
         print("o seu lugar é: ",lugardesejado)
         lista.append(lugardesejado)
-        escolha = input("você deseja sair? ").lower()
-        if escolha == "sim":
+        print("você deseja sair?, caso queira digite sim abaixo")
+        escolha = lernome().lower()
+        if escolha == "sim" or escolha == "s" or escolha == "si":
             break
 
     if menu == 3:
         saldo = pousada()
         print("seu saldo após a compra é de: ",saldo)
         lista.append(saldo)
-        escolha = input("você deseja sair? ").lower()
-        if escolha == "sim":
+        print("você deseja sair?, caso queira digite sim abaixo")
+        escolha = lernome().lower()
+        if escolha == "sim" or escolha == "s" or escolha == "si":
             break
-    else:
-        print("feche o programa e insira de novo")
-
-
-
+    if menu > 3 or menu < 0:
+        print("errado!\ntem que ser 1 ou 2 ou 3\ninsira sim para continuar ou qualquer coisa para parar")
+        escolha = lernome().lower()
+        if escolha == "sim" or escolha == "s" or escolha == "si":
+            continue
+        else:
+            print("fechando o programa!")
+            break
 
 print("sua lista é: ",lista)
+while True:
+    escolha = input("você deseja remover algum item?")
+    if escolha == "sim" or escolha == "s" or escolha == "si":
+        print("insira o índice do ítem abaixo,(sequência onde o item está) para remove-lo. EX: 1,2,3,4...:")
+        remover = lernumero()
+        while 0 > remover or remover >= len(lista):
+            print("está incorreto, insira um número do meio da lista")
+            remover = lernumero()
+    remover -= 1
+    itemremovido = lista.pop(remover)
+    print("o item retirado foi: ",itemremovido)
+    print("sua nova lista é: ", lista)
+    print("você deseja sair do programa e parar de excluir item?. Digite abaixo sim para sair")
+    escolha = lernome().lower()
+    if escolha == "sim" or escolha == "s" or escolha == "si":
+        break
