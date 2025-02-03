@@ -1,3 +1,6 @@
+from traceback import print_tb
+
+
 def cadastronome():
     cadastronome = input("insira o seu nome: ")
     while cadastronome == "": #lopping primário para validar nome vazio
@@ -49,22 +52,21 @@ def lernome():
                 break
         else:
             return nome
-
 def costapraia():
     while True:
         print("insira seu saldo:")
         saldo = lernumero()
-        if saldo < 0:
+        if saldo < 0: #não podemos efetuar nenhum pagamento se for negativo por isso voltamos ao início do looping para inseir o saldo de novo
             print("saldo está errado! bote um número positivo")
             continue
         print("digite a quantidade de dias abaixo:")
         dias = lernumero()
         print("insira os dias para ficar:")
-        if dias < 0:
+        if dias < 0: #impossível ter dias negativos por isso voltamos ao início do looping para inseir os dias de novo
             print("dia está errado! bote um número positivo")
             continue
         preco = dias * 200
-        while saldo <= preco:
+        while saldo <= preco: #não tem como ficar com saldo negativo por isso botamos um while para ele inserir o saldo novamente
             print("seu saldo é insuficiente, insira outro saldo!")
             print("caso queira sair insira um valor negativo")
             saldo = lernumero()
@@ -79,99 +81,142 @@ def costamar():
     while True:
         print("insira seu saldo:")
         saldo = lernumero()
-        if saldo < 0:
+        if saldo < 0: #não podemos efetuar nenhum pagamento se for negativo por isso voltamos ao início do looping para inseir o saldo de novo
             print("saldo inválido")
             continue
         print("insira os dias para ficar:")
         dias = lernumero()
-        if dias < 0:
+        if dias < 0: #impossível ter dias negativos por isso voltamos ao início do looping para inseir os dias de novo
             print("insira um número positivo de dias!")
             continue
         preco = dias * 150
-        while saldo < preco:
+        while saldo < preco: #não tem como ficar com saldo negativo por isso botamos um while para ele inserir o saldo novamente
             print("seu saldo é insuficiente, insira outro saldo!")
             print("caso queira sair insira um valor negativo")
             saldo = lernumero()
             if saldo < 0:
                 print("saindo")
                 break
-        if saldo < 0:
+        if saldo < 0: #dois breaks para voltar de vez para o menu
             break
         novosaldo = saldo - preco
         return novosaldo
 def pousada():
     print("temos duas pousadas, a costa praia e a costa mar\na costa mar está à 150 R$ por dia\na costa praia está à 200 R$ por dia")
-    escolha = input("qual pousada deseja?: ").strip()#caso insiram espaço incorretamente
+    #caso insiram espaço incorretamente
     while True:
-        if escolha== "":
-            print("está errado!")
-            escolha = input("insira novamente o local: ")
+        escolha = input("qual pousada deseja?: ").strip().upper()
+        if escolha== "": #se a variável escolha for vazia
+            print("está errado o nome não pode ser vazio!")
             continue
-        if not all(("a" <= c <= "z" or "A" <= c <= "Z" or c == " ") for c in escolha):
-            print("está errado")
-            escolha = input("insira novamente o local: ")
+        if escolha != "COSTA PRAIA" and escolha != "COSTA MAR":
+            print("não pode ser diferente das nossas pousadas!")
             continue
+        for c in escolha:
+            if not("a"<= c <= "z" or "A" <= c <= "Z" or c == " "): #para verificar se existe algum número ou símbolo na variável escolha
+                print("está errado")
+                continue
         break
     escolha = escolha.upper()
     if escolha == "COSTA PRAIA":
         return costapraia()
     elif escolha == "COSTA MAR":
        return costamar()
+def remover():
+    while True:
+        if not lista: #se não tiver lista ele irá retornar ao menu
+            print("ops, não tem lista,dito isso fechando a o programa")
+            break
+
+        remover = input("insira o item que deseja remover, se quiser remover tudo digite tudo:") #item para remoção ou remover tudo
+
+        if remover == "tudo" or remover == "TUDO": #if caso queira remover tudo
+            lista.clear() #função para remover todos os itens da lista
+            print(f"fechando o programa, pois sua lista é vazia:{lista}")
+        while remover not in lista:
+            remover = input("ops o item não está na lista digite novamente:")
+            if remover == "sair" or remover == "SAIR":
+                print("fechando o programa...")
+                break
+        if remover in lista: #se o item "remover" estiver na lista ele remve esse item
+            lista.remove(remover)
+            print(f"removendo o item: {remover}")
+            print(f"sua nova lista é: {lista}")
+            print('informe abaixo se deseja continuar, caso deseja, digite sim. Se quiser fechar o programa digite qualquer coisa:')
+            escolha = lernome()
+            if escolha == "sim" or escolha == "si" or escolha =="s": #caso escolha sim ele irá retornar para o início do looping no while True
+                continue
+            else: #se digitar qualquer outra coisa ele fecha
+                break
+        if not lista: #se não tiver lista ele irá retornar ao menu
+            print("ops, não tem lista,dito isso fechando a o programa")
+            break
+        return lista #retornar lista para o programa
+def editar():
+    while True:
+        if not lista: #se não tiver lista volta para o menu
+            print("fechando o programa pois não tem lista")
+            break
+        nome = input("insira o item da lista que você quer editar:")
+        while nome not in lista: #quando o nome que a pessoa quer editar não está na lista não tem o porque dela querer editar ele
+            nome= input("insira um valor que esteja na lista!:")
+        if nome in lista: #se o nome estiver escrito totalmente correto
+            nomeedit = input(f"insira o que você quer substituir no lugar de {nome}:")
+            index = lista.index(nome) #para procurar o nome na lista
+            lista[index] = nomeedit #para trocar o nome pelo novo nome da lista
+            print(f"sua lista agora é:{lista}")
+            print("insira sim abaixo caso queira sair:")
+            escolha = lernome()
+            if escolha == "sim" or escolha == "s" or escolha == "si":
+                print("fechando o programa")
+                break
+        return lista
+
 lista = []
 while True:
-    menu = print("--olá, bem vindo ao cadastro--\n1- fazer cadastro de nome\n2- para onde você vai?\n3-em qual pousada quer ficar. Pousadas:1- Costa mar 2- Costa areia\ntemos essas opções, digite 1,2 ou 3: ")
+    menu = print("--olá, bem vindo ao cadastro--\n1- fazer cadastro de nome\n2- para onde você vai?\n3-em qual pousada quer ficar. Pousadas:1- Costa mar 2- Costa areia\ntemos essas opções, digite 1,2 ou 3\nSe quiser sair do programa digite algum número maior que 3 ou menor que 0: ")
     print("insira abaixo a opção desejada:")
     menu = lernumero()
 
     if menu == 1: #botar o menu como um número, pois é mais interativo
         nome = cadastronome() #chamar uma função para o cadastro do nome
-        print("o seu nome é:", nome)
-        lista.append(nome)
-        print("você deseja sair?, caso queira digite sim abaixo")
-        escolha = lernome().lower()
-        if escolha == "sim" or escolha == "s" or escolha == "si":
+        print("o seu nome é:", nome.capitalize()) #função para deixar maiúsculo
+        lista.append(nome.capitalize()) #insere o nome à lista
+        print(f"sua lista agora é: {lista}")
+        print("você deseja parar de enserir itens na lista?, caso queira digite sim abaixo")
+        escolha = lernome().lower().strip() #retirar o espaço no final e início e botar em minúsculo
+        if escolha == "sim" or escolha == "s" or escolha == "si": #se a escolha receber sim fecha o programa
             break
-
     if menu == 2:
-        lugardesejado = lugar()
-        print("o seu lugar é: ",lugardesejado)
-        lista.append(lugardesejado)
-        print("você deseja sair?, caso queira digite sim abaixo")
-        escolha = lernome().lower()
+        lugardesejado = lugar() #chama uma função para o local
+        print("o seu lugar é: ",lugardesejado.capitalize())
+        lista.append(lugardesejado.capitalize())#insere o nome à lista
+        print(f"sua lista agora é: {lista}")
+        print("você deseja parar de enserir itens na lista?, caso queira digite sim abaixo")
+        escolha = lernome().lower().strip() #retirar o espaço no final e início e botar em minúsculo
         if escolha == "sim" or escolha == "s" or escolha == "si":
             break
-
     if menu == 3:
-        saldo = pousada()
+        saldo = pousada() #chama uma função para a pousada
         print("seu saldo após a compra é de: ",saldo)
-        lista.append(saldo)
-        print("você deseja sair?, caso queira digite sim abaixo")
-        escolha = lernome().lower()
-        if escolha == "sim" or escolha == "s" or escolha == "si":
+        lista.append(saldo) #insere o saldo à lista
+        print(f"sua lista agora é: {lista}")
+        print("você deseja parar de enserir itens na lista?, caso queira digite sim abaixo")
+        escolha = lernome().lower().strip() #retirar o espaço no final e início e botar em minúsculo
+        if escolha == "sim" or escolha == "s" or escolha == "si": #se a escolha receber sim fecha o programa
             break
     if menu > 3 or menu < 0:
         print("errado!\ntem que ser 1 ou 2 ou 3\ninsira sim para continuar ou qualquer coisa para parar")
-        escolha = lernome().lower()
-        if escolha == "sim" or escolha == "s" or escolha == "si":
+        escolha = lernome().lower().strip()
+        if escolha == "sim" or escolha == "s" or escolha == "si": #se a escolha receber sim fecha o programa
             continue
         else:
             print("fechando o programa!")
             break
 
 print("sua lista é: ",lista)
-while True:
-    escolha = input("você deseja remover algum item?")
-    if escolha == "sim" or escolha == "s" or escolha == "si":
-        print("insira o índice do ítem abaixo,(sequência onde o item está) para remove-lo. EX: 1,2,3,4...:")
-        remover = lernumero()
-        while 0 > remover or remover >= len(lista):
-            print("está incorreto, insira um número do meio da lista")
-            remover = lernumero()
-    remover -= 1
-    itemremovido = lista.pop(remover)
-    print("o item retirado foi: ",itemremovido)
-    print("sua nova lista é: ", lista)
-    print("você deseja sair do programa e parar de excluir item?. Digite abaixo sim para sair")
-    escolha = lernome().lower()
-    if escolha == "sim" or escolha == "s" or escolha == "si":
-        break
+escolha = input("você deseja remover ou editar algum item?.Se quiser manter como está digite qualquer coisa:").lower().strip()
+if escolha == "remover":
+    remover()
+elif escolha == "editar":
+    editar()
