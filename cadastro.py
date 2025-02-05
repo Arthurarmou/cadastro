@@ -226,72 +226,84 @@ elif escolha == "editar":
 
 # # cadastro 2:
 
-# import re #regex para validar letras
-# def lernumero():
-#     while True:
-#         escolha = input("insira o número:").strip()
-#         try:
-#             numero = int(escolha)
-#             return numero
-#         except ValueError:
-#             print("você não inseriu um número")
-# def lernome():
+import re #regex para validar letras
+def lernumero():
+    while True:
+        escolha = input("insira o número:").strip()
+        try:
+            numero = int(escolha)
+            return numero
+        except ValueError:
+            print("você não inseriu um número")
+def lernome():
 
-#     nome = input("insira seu nome:")
-#     while True:
-#         if nome == "":
-#             nome = input("seu nome não pode ser vazio, digite novamente:")
-#             continue
-#         for char in nome:
-#             if not (("A" <= char <="Z") or ("a" <= char <= "z") or (char == "ç") or ("ã" <= char <="õ") or ("á"<=char <="ú") or (char == " ") or ("â"<= char <= "û")):
-#                 print("está errado!, digite um nome não um símbolo ou número!")
-#                 nome = input("insira um nome sem números ou símbolos:")
-#                 break
-#         else:
-#             return nome
-# def lugar():
-#     nome = input("insira seu nome:")
-#     while True:
-#         if nome == "":
-#             nome = input("seu nome não pode ser vazio, digite novamente:")
-#             continue
-#         for char in nome:
-#             if not (("A" <= char <="Z") or ("a" <= char <= "z") or (char == "ç") or ("ã" <= char <="õ") or ("á"<=char <="ú") or (char == " ") or ("â"<= char <= "û")):
-#                 print("está errado!, digite um nome não um símbolo ou número!")
-#                 nome = input("insira um nome sem números ou símbolos:")
-#                 break
-#         else:
-#             return nome
-# def pousada():
-#     pousada = input("insira uma de nossas pousadas:Costa mar, costa areia:").upper()
-#     while pousada != "COSTA AREIA" or pousada != "COSTA MAR":
-#         print("ops não temos essa pousada insire uma de nossas pousadas, certifique-se que todas as letras estão iguais")
-#     if pousada == "COSTA AREIA":
-#         costaareia()
-# def costaareia:
-#     print("insira a quantidade de dias que quer passar em nossa pousada abaixo, :")
-# lista = []
+    nome = input("insira seu nome:")
+    while True:
+        if nome == "":
+            nome = input("seu nome não pode ser vazio, digite novamente:")
+            continue
+        for char in nome:
+            if not (("A" <= char <="Z") or ("a" <= char <= "z") or (char == "ç") or ("ã" <= char <="õ") or ("á"<=char <="ú") or (char == " ") or ("â"<= char <= "û")):
+                print("está errado!, digite um nome não um símbolo ou número!")
+                nome = input("insira um nome sem números ou símbolos:")
+                break
+        else:
+            return nome
+def lugar():
+    nome = input("insira seu nome:")
+    while True:
+        if nome == "":
+            nome = input("seu nome não pode ser vazio, digite novamente:")
+            continue
+        for char in nome:
+            if not (("A" <= char <="Z") or ("a" <= char <= "z") or (char == "ç") or ("ã" <= char <="õ") or ("á"<=char <="ú") or (char == " ") or ("â"<= char <= "û")):
+                print("está errado!, digite um nome não um símbolo ou número!")
+                nome = input("insira um nome sem números ou símbolos:")
+                break
+        else:
+            return nome
+def pousada():
+    pousada = input("insira uma de nossas pousadas:Costa mar, costa areia:").upper()
+    while pousada != "COSTA AREIA" or pousada != "COSTA MAR":
+        print("ops não temos essa pousada insire uma de nossas pousadas, certifique-se que todas as letras estão iguais")
+    if pousada == "COSTA AREIA":
+        costaareia()
+    elif pousada == "COSTA MAR":
+        costamar()
+def costaareia():
+    print("insira seu saldo abaixo para a transação:")
+    saldo = lernumero()
+    print("insira a quantidade de dias que quer passar em nossa pousada abaixo, :")
+    dias = lernumero()
+    saldo -= 150 * dias
+    print(f"seu saldo é:{saldo}")
+    return saldo
+def costamar():
+    print("")
+lista = []
 
-# def imprimir_reserva(reserva):
-#     return None
+def imprimir_reserva(reserva):
+    print()
 
-# def imprimir_todas_reservas(lista):
-#     for reserva in lista:
-#         imprimir_reserva(reserva)
-#         print("===================")
-        
-# for i in range(2):
-#     dicionario = {}
-#     print("olá, seja bem vindo ao cadastro de viagem dos gays!\n1 - Para escrever seu nome\n2 - para inserir o local\n3- para inserir onde quer ficar.Insira abaixo")
-#     menu = lernumero()
-#     if menu == 1:
-#         nome = lernome()
-#         dicionario["nome"] = nome.capitalize()
-#         print(f"seu nome é:{dicionario["nome"]}")
-#     elif menu == 2:
-#         lugar = lugar()
-#         dicionario["lugar"] = lugar.capitalize()
-#         print(f"seu lugar cadastro é:{dicionario["lugar"]}")
-#     elif menu == 3:
-#         pousada()
-#     lista.append(dicionario)
+def imprimir_todas_reservas(lista):
+    for reserva in lista:
+        imprimir_reserva(reserva)
+        print("===================")
+
+for i in range(3):
+    dicionario = {}
+    print("olá, seja bem vindo ao cadastro de viagem!\n1 - Para escrever seu nome\n2 - para inserir o local\n3- para inserir onde quer ficar.Insira abaixo")
+    menu = lernumero()
+    if menu == 1:
+        nome = lernome()
+        dicionario["nome"] = nome.capitalize()
+        print(f"seu nome é:{dicionario["nome"]}")
+    elif menu == 2:
+        lugar = lugar()
+        dicionario["lugar"] = lugar.capitalize()
+        print(f"seu lugar cadastro é:{dicionario["lugar"]}")
+    elif menu == 3:
+        saldo = pousada()
+        dicionario["saldo"] = saldo
+        print(f"seu saldo é:{dicionario["saldo"]}")
+    lista.append(dicionario)
