@@ -1,6 +1,3 @@
-from traceback import print_tb
-
-
 def cadastronome():
     cadastronome = input("insira o seu nome: ")
     while cadastronome == "": #lopping primário para validar nome vazio
@@ -133,10 +130,15 @@ def remover():
         if remover == "tudo" or remover == "TUDO": #if caso queira remover tudo
             lista.clear() #função para remover todos os itens da lista
             print(f"fechando o programa, pois sua lista é vazia:{lista}")
+            break
         while remover not in lista:
             remover = input("ops o item não está na lista digite novamente:")
             if remover == "sair" or remover == "SAIR":
                 print("fechando o programa...")
+                break
+            elif remover == "tudo" or remover == "TUDO":
+                lista.clear()
+                print("você não tem lista, dito isso fechando o código!")
                 break
         if remover in lista: #se o item "remover" estiver na lista ele remve esse item
             lista.remove(remover)
