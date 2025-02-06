@@ -225,7 +225,7 @@ elif escolha == "editar":
 
 
 # # cadastro 2:
-
+# import datetime
 # import re #regex para validar letras
 # def lernumero():
 #     while True:
@@ -244,66 +244,102 @@ elif escolha == "editar":
 #             continue
 #         for char in nome:
 #             if not (("A" <= char <="Z") or ("a" <= char <= "z") or (char == "ç") or ("ã" <= char <="õ") or ("á"<=char <="ú") or (char == " ") or ("â"<= char <= "û")):
-#                 print("está errado!, digite um nome não um símbolo ou número!")
+#                 print("está errado!, digite um nome que não contenha símbolo ou número!")
 #                 nome = input("insira um nome sem números ou símbolos:")
 #                 break
 #         else:
 #             return nome
 # def lugar():
-#     nome = input("insira seu nome:")
+#     nome = input("insira o lugar que você quer ir:")
 #     while True:
 #         if nome == "":
-#             nome = input("seu nome não pode ser vazio, digite novamente:")
+#             nome = input("seu lugar não pode ser vazio, digite novamente:")
 #             continue
 #         for char in nome:
 #             if not (("A" <= char <="Z") or ("a" <= char <= "z") or (char == "ç") or ("ã" <= char <="õ") or ("á"<=char <="ú") or (char == " ") or ("â"<= char <= "û")):
-#                 print("está errado!, digite um nome não um símbolo ou número!")
-#                 nome = input("insira um nome sem números ou símbolos:")
+#                 print("está errado!, digite um lugar que não tenha símbolo ou número!")
+#                 nome = input("insira um lugar sem números ou símbolos:")
 #                 break
 #         else:
 #             return nome
 # def pousada():
-#     pousada = input("insira uma de nossas pousadas:Costa mar, costa areia:").upper()
-#     while pousada != "COSTA AREIA" or pousada != "COSTA MAR":
-#         print("ops não temos essa pousada insire uma de nossas pousadas, certifique-se que todas as letras estão iguais")
+#     pousada = input("insira uma de nossas pousadas: costa mar e costa areia:").upper()
+#     while pousada != "COSTA AREIA" and pousada != "COSTA MAR":
+#         print("ops não temos essa pousada insira uma de nossas pousadas, certifique-se que todas as letras estão iguais!")
+#         pousada = input("insira a pousada:").upper()
 #     if pousada == "COSTA AREIA":
-#         costaareia()
+#         return costaareia()
 #     elif pousada == "COSTA MAR":
-#         costamar()
+#         return costamar()
 # def costaareia():
 #     print("insira seu saldo abaixo para a transação:")
 #     saldo = lernumero()
-#     print("insira a quantidade de dias que quer passar em nossa pousada abaixo, :")
+#     while saldo <= 0:
+#         print("ops não insira um saldo negativo!")
+#         saldo = lernumero()
+#     print("insira a quantidade de dias que quer passar em nossa pousada abaixo, cada diária é 150 reais :")
 #     dias = lernumero()
-#     saldo -= 150 * dias
-#     print(f"seu saldo é:{saldo}")
-#     return saldo
+#     valor = 150 * dias
+#     while valor > saldo:
+#         print("seu saldo é insuficiente! Insira um saldo maior do que será retirado de sua conta!")
+#         saldo = lernumero()
+#     novosaldo = saldo - valor
+#     return novosaldo, dias
 # def costamar():
-#     print("")
-# lista = []
-
+#     print("insira seu saldo abaixo para a transação:")
+#     saldo = lernumero()
+#     while saldo <= 0:
+#         print("ops não insira um saldo negativo ou um saldo de 0!")
+#         saldo = lernumero()
+#     print("insira a quantidade de dias que quer passar em nossa pousada abaixo, cada diária é 200 reais :")
+#     dias = lernumero()
+#     valor = 200 * dias
+#     while valor > saldo:
+#         print("seu saldo é insuficiente! Insira um saldo maior do que será retirado de sua conta!")
+#         saldo = lernumero()
+#     novosaldo = saldo - valor
+#     return novosaldo, dias
 # def imprimir_reserva(reserva):
-#     print()
-
+#     print(f"seu cadastro é:{reserva}")
 # def imprimir_todas_reservas(lista):
 #     for reserva in lista:
-#         imprimir_reserva(reserva)
 #         print("===================")
-
-# for i in range(3):
-#     dicionario = {}
-#     print("olá, seja bem vindo ao cadastro de viagem!\n1 - Para escrever seu nome\n2 - para inserir o local\n3- para inserir onde quer ficar.Insira abaixo")
+#         imprimir_reserva(reserva)
+# def data(dias):
+#     hora = datetime.date.today()
+#     datackin = hora + datetime.timedelta(days=4)
+#     print(f"sua data de check-in é no dia{datackin.strftime('%d/%m/%Y')}")
+#     datackout = datackin + datetime.timedelta(days=dias)
+#     print(f"sua data de check-out é no dia{datackout.strftime('%d/%m/%Y')}")
+# lista = []
+# dicionario = {}
+# for i in range(4):
+#     print("olá, seja bem vindo ao cadastro de viagem!\n1 - Para escrever seu nome\n2 - para inserir o local\n3- para inserir onde quer ficar.\nInsira abaixo a sua escolha!\n4- para identificar quando vai ser o check-out e o check-in")
 #     menu = lernumero()
 #     if menu == 1:
 #         nome = lernome()
 #         dicionario["nome"] = nome.capitalize()
-#         print(f"seu nome é:{dicionario["nome"]}")
+#         print("seu nome é:",dicionario["nome"])
 #     elif menu == 2:
 #         lugar = lugar()
 #         dicionario["lugar"] = lugar.capitalize()
-#         print(f"seu lugar cadastro é:{dicionario["lugar"]}")
+#         print("seu lugar cadastro é:",dicionario["lugar"])
 #     elif menu == 3:
-#         saldo = pousada()
+#         saldo, dias = pousada()
 #         dicionario["saldo"] = saldo
-#         print(f"seu saldo é:{dicionario["saldo"]}")
-#     lista.append(dicionario)
+#         print("seu saldo é:",dicionario["saldo"])
+#     elif menu == 4:
+#         data(dias)
+# lista.append(dicionario)
+# escolha = input("você deseja ver seu cadastro?,se sim digite ver:").upper()
+# if escolha == "VER":
+#     imprimir_reserva(lista[-1])
+# elif escolha == "VER TUDO":
+#     imprimir_todas_reservas(lista)
+# else:
+#     print("deseja remover seu cadastro?:")
+#     escolha = input("insira sim se quiser:").lower()
+#     if escolha == "sim" or escolha == "si" or escolha == "s":
+#         lista.pop(0)
+#         print("seu cadastro foi excluído")
+
