@@ -226,7 +226,6 @@ elif escolha == "editar":
 
 # # cadastro 2:
 # import datetime
-# import re #regex para validar letras
 # def lernumero():
 #     while True:
 #         escolha = input("insira o número:").strip()
@@ -236,7 +235,6 @@ elif escolha == "editar":
 #         except ValueError:
 #             print("você não inseriu um número")
 # def lernome():
-
 #     nome = input("insira seu nome:")
 #     while True:
 #         if nome == "":
@@ -256,7 +254,8 @@ elif escolha == "editar":
 #             nome = input("seu lugar não pode ser vazio, digite novamente:")
 #             continue
 #         for char in nome:
-#             if not (("A" <= char <="Z") or ("a" <= char <= "z") or (char == "ç") or ("ã" <= char <="õ") or ("á"<=char <="ú") or (char == " ") or ("â"<= char <= "û")):
+#             if not (("A" <= char <= "Z") or ("a" <= char <= "z") or (char == "ç") or ("ã" <= char <= "õ") or (
+#                     "á" <= char <= "ú") or (char == " ") or ("â" <= char <= "û")):
 #                 print("está errado!, digite um lugar que não tenha símbolo ou número!")
 #                 nome = input("insira um lugar sem números ou símbolos:")
 #                 break
@@ -308,38 +307,50 @@ elif escolha == "editar":
 # def data(dias):
 #     hora = datetime.date.today()
 #     datackin = hora + datetime.timedelta(days=4)
-#     print(f"sua data de check-in é no dia{datackin.strftime('%d/%m/%Y')}")
 #     datackout = datackin + datetime.timedelta(days=dias)
-#     print(f"sua data de check-out é no dia{datackout.strftime('%d/%m/%Y')}")
+
+#     dicionario["data do check-in"] = datackin.strftime('%d/%m/%Y')
+#     print("sua data de check-in é:", dicionario["data do check-in"])
+#     dicionario["data do check-out"] = datackout.strftime('%d/%m/%Y')
+#     print("sua data de check-out é:", dicionario["data do check-out"])
+#     return datackin,datackout
 # lista = []
 # dicionario = {}
-# for i in range(4):
-#     print("olá, seja bem vindo ao cadastro de viagem!\n1 - Para escrever seu nome\n2 - para inserir o local\n3- para inserir onde quer ficar.\nInsira abaixo a sua escolha!\n4- para identificar quando vai ser o check-out e o check-in")
-#     menu = lernumero()
-#     if menu == 1:
-#         nome = lernome()
-#         dicionario["nome"] = nome.capitalize()
-#         print("seu nome é:",dicionario["nome"])
-#     elif menu == 2:
-#         lugar = lugar()
-#         dicionario["lugar"] = lugar.capitalize()
-#         print("seu lugar cadastro é:",dicionario["lugar"])
-#     elif menu == 3:
-#         saldo, dias = pousada()
-#         dicionario["saldo"] = saldo
-#         print("seu saldo é:",dicionario["saldo"])
-#     elif menu == 4:
-#         data(dias)
-# lista.append(dicionario)
-# escolha = input("você deseja ver seu cadastro?,se sim digite ver:").upper()
-# if escolha == "VER":
-#     imprimir_reserva(lista[-1])
-# elif escolha == "VER TUDO":
-#     imprimir_todas_reservas(lista)
-# else:
-#     print("deseja remover seu cadastro?:")
-#     escolha = input("insira sim se quiser:").lower()
+# while True:
+#     for i in range(4):
+#         print("olá, seja bem vindo ao cadastro de viagem!\n1 - Para escrever seu nome\n2 - para inserir o local\n3- para inserir onde quer ficar\n4- para identificar quando vai ser o check-out e o check-in\nDigite qualquer outro número para sair!\nInsira abaixo a sua escolha!")
+#         menu = lernumero()
+#         if menu == 1:
+#             nome = lernome()
+#             dicionario["nome"] = nome.capitalize()
+#             print("seu nome é:",dicionario["nome"])
+#         elif menu == 2:
+#             local = lugar()
+#             dicionario["lugar"] = local.capitalize()
+#             print("seu lugar cadastro é:",dicionario["lugar"])
+#         elif menu == 3:
+#             saldo, dias = pousada()
+#             dicionario["saldo"] = saldo
+#             print("seu saldo é:",dicionario["saldo"])
+#         elif menu == 4:
+#             data(dias)
+#     lista.append(dicionario)
+#     escolha = input("você deseja ver seu cadastro?,se sim digite ver:").upper()
+#     if escolha == "VER":
+#         imprimir_reserva(lista[-1])
+#     elif escolha == "VER TUDO":
+#         imprimir_todas_reservas(lista)
+#     else:
+#         print("deseja remover seu cadastro?:")
+#         escolha = input("insira sim se quiser:").lower()
+#         if escolha == "sim" or escolha == "si" or escolha == "s":
+#             lista.pop(0)
+#             print("seu cadastro foi excluído")
+#             print("por estar sem cadastro, fechando o programa...")
+#             break
+#     escolha = input("insira se deseja continuar, caso queira deigite sim:").lower()
 #     if escolha == "sim" or escolha == "si" or escolha == "s":
-#         lista.pop(0)
-#         print("seu cadastro foi excluído")
-
+#         continue
+#     else:
+#         print("seu cadastro foi salvo em nosso site, fechando programa...")
+#         break
