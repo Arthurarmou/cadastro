@@ -226,6 +226,7 @@ elif escolha == "editar":
 
 # # cadastro 2:
 # import datetime
+# import time
 # def lernumero():
 #     while True:
 #         escolha = input("insira o número:").strip()
@@ -305,6 +306,7 @@ elif escolha == "editar":
 #         print("===================")
 #         imprimir_reserva(reserva)
 # def data(dias):
+
 #     hora = datetime.date.today()
 #     datackin = hora + datetime.timedelta(days=4)
 #     datackout = datackin + datetime.timedelta(days=dias)
@@ -314,26 +316,59 @@ elif escolha == "editar":
 #     dicionario["data do check-out"] = datackout.strftime('%d/%m/%Y')
 #     print("sua data de check-out é:", dicionario["data do check-out"])
 #     return datackin,datackout
+
 # lista = []
-# dicionario = {}
+
 # while True:
-#     for i in range(4):
+#     dicionario = {}
+#     nome_adicionado = False
+#     local_adicionado = False
+#     pousada_adicionada = False
+#     data_adicionada = False
+
+
+#     while not (nome_adicionado and local_adicionado and pousada_adicionada and data_adicionada):
 #         print("olá, seja bem vindo ao cadastro de viagem!\n1 - Para escrever seu nome\n2 - para inserir o local\n3- para inserir onde quer ficar\n4- para identificar quando vai ser o check-out e o check-in\nDigite qualquer outro número para sair!\nInsira abaixo a sua escolha!")
 #         menu = lernumero()
-#         if menu == 1:
+#         if menu == 1 and not nome_adicionado:
 #             nome = lernome()
 #             dicionario["nome"] = nome.capitalize()
 #             print("seu nome é:",dicionario["nome"])
-#         elif menu == 2:
+#             nome_adicionado = True
+
+#         elif menu == 1 and nome_adicionado:
+#             print("você já botou seu nome!")
+#             time.sleep(2)
+
+#         elif menu == 2 and not local_adicionado:
 #             local = lugar()
 #             dicionario["lugar"] = local.capitalize()
 #             print("seu lugar cadastro é:",dicionario["lugar"])
-#         elif menu == 3:
+#             local_adicionado = True
+
+#         elif menu == 2 and local_adicionado:
+#             print("você já botou seu lugar!")
+#             time.sleep(2)
+
+#         elif menu == 3 and not pousada_adicionada:
 #             saldo, dias = pousada()
 #             dicionario["saldo"] = saldo
 #             print("seu saldo é:",dicionario["saldo"])
-#         elif menu == 4:
-#             data(dias)
+#             pousada_adicionada = True
+
+#         elif menu == 3 and pousada_adicionada:
+#             print("você já botou sua pousada!")
+#             time.sleep(2)
+#         elif menu == 4 and not data_adicionada:
+#             try:
+#                 data(dias)
+#                 data_adicionada = True
+#             except:
+#                 print("ops, você ainda não inseriu os dias que quer ficar em nossa pousada!")
+#                 continue
+#         elif menu == 4 and data_adicionada:
+#             print("já amostramos a sua data de check-in e check-out!")
+#             time.sleep(2)
 #     lista.append(dicionario)
 #     escolha = input("você deseja ver seu cadastro?,se sim digite ver:").upper()
 #     if escolha == "VER":
@@ -348,7 +383,7 @@ elif escolha == "editar":
 #             print("seu cadastro foi excluído")
 #             print("por estar sem cadastro, fechando o programa...")
 #             break
-#     escolha = input("insira se deseja continuar, caso queira deigite sim:").lower()
+#     escolha = input("insira se deseja continuar, caso queira digite sim:").lower().strip()
 #     if escolha == "sim" or escolha == "si" or escolha == "s":
 #         continue
 #     else:
