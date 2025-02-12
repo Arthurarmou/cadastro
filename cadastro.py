@@ -227,6 +227,7 @@ elif escolha == "editar":
 # # cadastro 2:
 # import datetime
 # import time
+# import json
 # def lernumero():
 #     while True:
 #         escolha = input("insira o número:").strip()
@@ -317,7 +318,12 @@ elif escolha == "editar":
 #     print("sua data de check-out é:", dicionario["data do check-out"])
 #     return datackin,datackout
 
-# lista = []
+# def ler_arquivo():
+#     with open("cadastro.json","r") as lercadastro:
+#         lista = json.load(lercadastro)
+#     return lista
+
+# lista = ler_arquivo()
 
 # while True:
 #     dicionario = {}
@@ -370,14 +376,20 @@ elif escolha == "editar":
 #         elif menu == 4 and data_adicionada:
 #             print("já amostramos a sua data de check-in e check-out!")
 #             time.sleep(2)
-#         if menu >=0 or menu <4:
+#         elif menu >=0 or menu <4:
 #             fechar_programa = True
 #         if fechar_programa:
 #             print("fechando programa...")
 #             break
 #     if fechar_programa:
 #         break
+
+
 #     lista.append(dicionario)
+#     with open("cadastro.json","w") as cadastro:
+#         lista_json = json.dumps(lista, indent=4)
+#         cadastro.write(lista_json)
+
 #     escolha = input("você deseja ver seu cadastro?,se sim digite ver:").upper()
 #     if escolha == "VER":
 #         imprimir_reserva(lista[-1])
