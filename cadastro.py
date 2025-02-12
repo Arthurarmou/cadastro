@@ -325,7 +325,8 @@ elif escolha == "editar":
 #     local_adicionado = False
 #     pousada_adicionada = False
 #     data_adicionada = False
-
+#     fechar_programa = False
+#     dias = ""
 
 #     while not (nome_adicionado and local_adicionado and pousada_adicionada and data_adicionada):
 #         print("olá, seja bem vindo ao cadastro de viagem!\n1 - Para escrever seu nome\n2 - para inserir o local\n3- para inserir onde quer ficar\n4- para identificar quando vai ser o check-out e o check-in\nDigite qualquer outro número para sair!\nInsira abaixo a sua escolha!")
@@ -369,6 +370,13 @@ elif escolha == "editar":
 #         elif menu == 4 and data_adicionada:
 #             print("já amostramos a sua data de check-in e check-out!")
 #             time.sleep(2)
+#         if menu >=0 or menu <4:
+#             fechar_programa = True
+#         if fechar_programa:
+#             print("fechando programa...")
+#             break
+#     if fechar_programa:
+#         break
 #     lista.append(dicionario)
 #     escolha = input("você deseja ver seu cadastro?,se sim digite ver:").upper()
 #     if escolha == "VER":
