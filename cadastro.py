@@ -1,3 +1,4 @@
+
 # cadastro 2:
 import datetime
 import time
@@ -11,32 +12,33 @@ def lernumero():
         except ValueError:
             print("você não inseriu um número")
 def lernome():
-    nome = input("insira seu nome:")
     while True:
+        nome = input("insira seu nome:").strip()
         if nome == "":
-            nome = input("seu nome não pode ser vazio, digite novamente:")
+            print("seu nome não pode ser vazio, digite novamente abaixo:")
             continue
         for char in nome:
             if not (("A" <= char <="Z") or ("a" <= char <= "z") or (char == "ç") or ("ã" <= char <="õ") or ("á"<=char <="ú") or (char == " ") or ("â"<= char <= "û")):
                 print("está errado!, digite um nome que não contenha símbolo ou número!")
-                nome = input("insira um nome sem números ou símbolos:")
+                nome = input("insira um nome sem números ou símbolos:").strip()
                 break
         else:
             return nome
 def lugar():
-    nome = input("insira o lugar que você quer ir:")
     while True:
-        if nome == "":
-            nome = input("seu lugar não pode ser vazio, digite novamente:")
+        nomelugar = input("insira o lugar que você quer ir:").strip()
+
+        if nomelugar == "":
+            print("seu lugar não pode ser vazio, digite novamente abaixo:")
             continue
-        for char in nome:
+        for char in nomelugar:
             if not (("A" <= char <= "Z") or ("a" <= char <= "z") or (char == "ç") or ("ã" <= char <= "õ") or (
                     "á" <= char <= "ú") or (char == " ") or ("â" <= char <= "û")):
                 print("está errado!, digite um lugar que não tenha símbolo ou número!")
-                nome = input("insira um lugar sem números ou símbolos:")
+                nomelugar = input("insira um lugar sem números ou símbolos:").strip()
                 break
         else:
-            return nome
+            return nomelugar
 def pousada():
     pousada = input("insira uma de nossas pousadas: costa mar e costa areia:").upper()
     while pousada != "COSTA AREIA" and pousada != "COSTA MAR":
@@ -107,8 +109,10 @@ def editar(dicionario):
     while nome not in dicionario:
         print("o valor que você está inserindo não está na lista!")
         nome = input("insira um valor válido:")
-
-    nome_editar = input("insira o nome que você quer substituir")
+    while nome == "saldo":
+        print("o saldo é imutável!")
+        nome = input("insira o valor que você quer editar:")
+    nome_editar = input("insira o nome que você quer substituir:")
     dicionario[nome] = nome_editar.capitalize()
     return dicionario
 lista = ler_arquivo()
@@ -120,6 +124,7 @@ while True:
     pousada_adicionada = False
     data_adicionada = False
     fechar_programa = False
+    cadastro_adicionado = False
     dias = ""
 
     while not (nome_adicionado and local_adicionado and pousada_adicionada and data_adicionada):
@@ -179,6 +184,7 @@ while True:
     else:
         escolha = input("você deseja editar algo da lista, insira sim!:").lower()
         if escolha == "sim":
+            cadastro_adicionado = True
             editar(dicionario)
         lista.append(dicionario)
         with open("cadastro.json", "w") as cadastro:
@@ -186,12 +192,18 @@ while True:
             cadastro.write(lista_json)
         escolha = input("você deseja ver seu cadastro?,se sim digite ver:").upper()
         if escolha == "VER":
+            cadastro_adicionado = True
             imprimir_reserva(lista[-1])
         elif escolha == "VER TUDO":
+            cadastro_adicionado = True
             imprimir_todas_reservas(lista)
     escolha = input("insira se deseja continuar, caso queira digite sim:").lower().strip()
     if escolha == "sim" or escolha == "si" or escolha == "s":
         continue
     else:
-        print("seu cadastro foi salvo em nosso site, fechando programa...")
-        break
+        if cadastro_adicionado:
+            print("seu cadastro foi salvo em nosso site, fechando programa...")
+            break
+        else:
+            print("você não fez nenhum cadastro!")
+            break
