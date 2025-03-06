@@ -1,4 +1,3 @@
-
 # cadastro 2:
 import datetime
 import time
@@ -20,7 +19,6 @@ def lernome():
         for char in nome:
             if not (("A" <= char <="Z") or ("a" <= char <= "z") or (char == "ç") or ("ã" <= char <="õ") or ("á"<=char <="ú") or (char == " ") or ("â"<= char <= "û")):
                 print("está errado!, digite um nome que não contenha símbolo ou número!")
-                nome = input("insira um nome sem números ou símbolos:").strip()
                 break
         else:
             return nome
@@ -35,7 +33,6 @@ def lugar():
             if not (("A" <= char <= "Z") or ("a" <= char <= "z") or (char == "ç") or ("ã" <= char <= "õ") or (
                     "á" <= char <= "ú") or (char == " ") or ("â" <= char <= "û")):
                 print("está errado!, digite um lugar que não tenha símbolo ou número!")
-                nomelugar = input("insira um lugar sem números ou símbolos:").strip()
                 break
         else:
             return nomelugar
@@ -51,8 +48,8 @@ def pousada():
 def costaareia():
     print("insira seu saldo abaixo para a transação:")
     saldo = lernumero()
-    while saldo <= 0:
-        print("ops não insira um saldo negativo!")
+    while saldo < 0:
+        print("ops, não insira um saldo negativo ou um saldo de 0!")
         saldo = lernumero()
     print("insira a quantidade de dias que quer passar em nossa pousada abaixo, cada diária é 150 reais :")
     dias = lernumero()
@@ -105,14 +102,19 @@ def remover(lista):
 def editar(dicionario):
     print(dicionario)
     nome = input("insira o valor que você quer editar:")
-
     while nome not in dicionario:
         print("o valor que você está inserindo não está na lista!")
         nome = input("insira um valor válido:")
     while nome == "saldo":
         print("o saldo é imutável!")
         nome = input("insira o valor que você quer editar:")
+    while nome == "data do check-out" or nome == "data do check-in":
+        print("a data é imutável!")
+        nome = input("insira o valor que você quer editar:")
     nome_editar = input("insira o nome que você quer substituir:")
+    while nome_editar == dicionario[nome] :
+        print("o nome é igual, insira outro nome!")
+        nome_editar = input("insira o nome que você quer substituir:")
     dicionario[nome] = nome_editar.capitalize()
     return dicionario
 lista = ler_arquivo()
@@ -178,7 +180,7 @@ while True:
     if fechar_programa:
         break
 
-    escolha = input("insira sim se quiser remover seu cadastro atual(qualquer outra coisa não excluirá seu cadastro):").lower()
+    escolha = input("insira sim se quiser remover seu cadastro atual (qualquer outra coisa não excluirá seu cadastro):").lower()
     if escolha == "sim" or escolha == "si" or escolha == "s":
         remover(lista)
     else:
